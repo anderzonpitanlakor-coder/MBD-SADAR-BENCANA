@@ -227,20 +227,68 @@ function loadGempa() {
 
 // 2. UPDATE MARITIM & CUACA (OTOMATIS TIAP 1 JAM)
 function loadLiveData() {
-    const lat = -8.21; const lon = 127.65; // Koordinat Tiakur
+    // Koordinat Tiakur, Maluku Barat Daya
+    const lat = -8.21; 
+    const lon = 127.65; 
+    
+    // API Endpoints
     const cuacaUrl = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,rain,wind_speed_10m&wind_speed_unit=kn&timezone=Asia%2FJayapura`;
     const lautUrl = `https://marine-api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=wave_height`;
 
-    Promise.all([fetch(cuacaUrl).then(r=>r.json()), fetch(lautUrl).then(r=>r.json())])
+    console.log("Memulai sinkronisasi data per 60 menit...");
+
+    Promise.all([
+        fetch(cuacaUrl).then(r => {
+            if (!r.ok) throw new Error('Gagal memuat data cuaca');
+            return r.json();
+        }),
+        fetch(lautUrl).then(r => {
+            if (!r.ok) throw new Error('Gagal memuat data maritim');
+            return r.json();
+        })
+    ])
     .then(([c, l]) => {
-        // Memasukkan angka real-time dari sensor satelit
-        document.getElementById("v-wave").innerText = l.current.wave_height.toFixed(1);
-        document.getElementById("v-wind").innerText = Math.round(c.current.wind_speed_10m);
-        document.getElementById("v-rain").innerText = c.current.rain.toFixed(1);
-        document.getElementById("v-temp").innerText = Math.round(c.current.temperature_2m);
+        // 1. Update Tinggi Gelombang (1 angka di belakang koma)
+        const waveHeight = l.current.wave_height;
+        document.getElementById("v-wave").innerText = waveHeight.toFixed(1);
+
+        // 2. Update Kecepatan Angin (Pembulatan ke angka bulat sesuai standar knots BMKG)
+        const windSpeed = Math.round(c.current.wind_speed_10m);
+        document.getElementById("v-wind").innerText = windSpeed;
+
+        // 3. Update Curah Hujan
+        const rain = c.current.rain;
+        document.getElementById("v-rain").innerText = rain.toFixed(1);
+
+        // 4. Update Suhu Udara
+        const temp = Math.round(c.current.temperature_2m);
+        document.getElementById("v-temp").innerText = temp;
         
-        const skrg = new Date();
-        document.getElementById("tgl-cuaca").innerText = "SINKRONISASI OTOMATIS: " + skrg.getHours() + ":00 WIT (UPDATE BERIKUTNYA DALAM 60 MENIT)";
+        // Update Timestamp Label
+        const sekarang = new Date();
+        const jam = sekarang.getHours().toString().padStart(2, '0');
+        const menit = sekarang.getMinutes().toString().padStart(2, '0');
+        
+        document.getElementById("tgl-cuaca").innerHTML = `
+            <span style="color: #00ffcc;">● LIVE</span> SINKRONISASI: ${jam}:${menit} WIT 
+            <br> <span style="font-size: 7px; opacity: 0.6;">SISTEM AKAN MEMPERBARUI DATA OTOMATIS TIAP 60 MENIT</span>
+        `;
+
+        // Logika tambahan: Jika angin > 25 knots atau gelombang > 2.5m, beri peringatan visual
+        if (windSpeed > 25 || waveHeight > 2.5) {
+            document.getElementById("v-wind").style.color = "#ff3333";
+            document.getElementById("v-wave").style.color = "#ff3333";
+        } else {
+            document.getElementById("v-wind").style.color = "#fff";
+            document.getElementById("v-wave").style.color = "#fff";
+        }
+
+    })
+    .catch(err => {
+        console.error("Koneksi gagal:", err);
+        document.getElementById("tgl-cuaca").innerText = "Gagal sinkronisasi. Mencoba ulang dalam 1 menit...";
+        // Coba lagi dalam 1 menit jika gagal
+        setTimeout(loadLiveData, 60000);
     });
 }
 
