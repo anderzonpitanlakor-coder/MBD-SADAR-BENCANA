@@ -225,19 +225,22 @@ function loadGempa() {
     });
 }
 
-// 2. DATA MARITIM & CUACA REAL-TIME (KOORDINAT TIAKUR/MBD)
-function loadCuaca() {
-    const lat = -8.21; const lon = 127.65;
+// 2. UPDATE MARITIM & CUACA (OTOMATIS TIAP 1 JAM)
+function loadLiveData() {
+    const lat = -8.21; const lon = 127.65; // Koordinat Tiakur
     const cuacaUrl = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,rain,wind_speed_10m&wind_speed_unit=kn&timezone=Asia%2FJayapura`;
     const lautUrl = `https://marine-api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=wave_height`;
 
     Promise.all([fetch(cuacaUrl).then(r=>r.json()), fetch(lautUrl).then(r=>r.json())])
     .then(([c, l]) => {
-        document.getElementById("v-wave").innerText = l.current.wave_height;
+        // Memasukkan angka real-time dari sensor satelit
+        document.getElementById("v-wave").innerText = l.current.wave_height.toFixed(1);
         document.getElementById("v-wind").innerText = Math.round(c.current.wind_speed_10m);
-        document.getElementById("v-rain").innerText = c.current.rain;
+        document.getElementById("v-rain").innerText = c.current.rain.toFixed(1);
         document.getElementById("v-temp").innerText = Math.round(c.current.temperature_2m);
-        document.getElementById("tgl-cuaca").innerText = "SINKRONISASI BMKG NASIONAL: " + new Date().toLocaleString('id-ID', {timeZone:'Asia/Jayapura'}) + " WIT";
+        
+        const skrg = new Date();
+        document.getElementById("tgl-cuaca").innerText = "SINKRONISASI OTOMATIS: " + skrg.getHours() + ":00 WIT (UPDATE BERIKUTNYA DALAM 60 MENIT)";
     });
 }
 
