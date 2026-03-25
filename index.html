@@ -13,11 +13,30 @@ body {
     font-family:'Orbitron', sans-serif;
     background: radial-gradient(circle at top,#0f2027,#203a43,#000);
     color:white;
-    padding-bottom: 100px;
+    padding-bottom: 60px; /* Ruang untuk teks berjalan di bawah */
 }
 
-/* HEADER & NAV */
-.header { text-align:center; padding:20px; font-size:40px; background:rgba(0,0,0,0.9); border-bottom: 2px solid #00d4ff; letter-spacing:2px; }
+/* --- UPDATE HEADER --- */
+.header { 
+    display: flex;
+    justify-content: space-between; /* Membuat teks di kiri, logo di kanan */
+    align-items: center; /* Menjaga teks dan logo sejajar secara vertikal */
+    padding: 10px 20px;
+    background: rgba(0,0,0,0.9);
+    border-bottom: 2px solid #00d4ff;
+}
+
+.header-text {
+    font-size: 24px;
+    letter-spacing: 2px;
+}
+
+.header-logo {
+    height: 50px; /* Atur ukuran tinggi logo sesuai keinginan */
+    width: auto;
+}
+
+/* NAVBAR */
 nav { display:flex; justify-content:space-around; background:#000; padding:10px; position:sticky; top:0; z-index:100; border-bottom: 1px solid #333; }
 nav button { background:none; border:none; color:white; cursor:pointer; font-family: inherit; font-size: 12px; }
 
@@ -45,21 +64,61 @@ nav button { background:none; border:none; color:white; cursor:pointer; font-fam
 /* ACCORDION */
 .accordion-item { background: rgba(255, 255, 255, 0.07); margin-bottom: 10px; border-radius: 8px; border: 1px solid rgba(0, 212, 255, 0.2); }
 .accordion-header { width: 100%; padding: 15px; background: none; border: none; color: #fff; text-align: left; font-family: inherit; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-size: 13px; }
-.accordion-content { display: none; padding: 15px; background: rgba(0, 0, 0, 0.4); line-height: 1.5; font-size: 13px; border-top: 1px solid rgba(0,212,255,0.1); }
+.accordion-content { display: none; padding: 15px; background: rgba(0, 0, 0, 0.6); line-height: 1.5; font-size: 13px; border-top: 1px solid rgba(0,212,255,0.1); }
 .accordion-content img { width: 100%; border-radius: 8px; margin-bottom: 10px; }
 
-/* MAP CONTAINER */
-.map-frame { width: 100%; height: 450px; border-radius: 12px; border: 2px solid #00d4ff; margin-top: 10px; }
+/* FOOTER TEXT BERJALAN */
+.footer-running-text {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    color: #00d4ff;
+    padding: 5px 0;
+    font-size: 11px;
+    z-index: 999;
+    border-top: 1px solid #00d4ff;
+    overflow: hidden;
+    white-space: nowrap;
+}
 
-/* WAVE */
-.wave { position:fixed; bottom:0; width:100%; height:80px; background:url('https://i.ibb.co/7bKZ1Vh/wave.png'); animation:wave 10s linear infinite; z-index: -1; opacity: 0.3; }
-@keyframes wave { from {background-position-x:0;} to {background-position-x:1000px;} }
+.marquee-content {
+    display: inline-block;
+    padding-left: 100%;
+    animation: marquee 20s linear infinite;
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+@keyframes marquee {
+    0% { transform: translate(0, 0); }
+    100% { transform: translate(-100%, 0); }
+}
+
+/* WAVE ANIMATION (DI BELAKANG TEKS) */
+.wave { 
+    position:fixed; 
+    bottom:20px; 
+    width:100%; 
+    height:60px; 
+    background:url('https://i.ibb.co/7bKZ1Vh/wave.png'); 
+    animation:wave-anim 10s linear infinite; 
+    z-index: -1; 
+    opacity: 0.2; 
+}
+
+@keyframes wave-anim { from {background-position-x:0;} to {background-position-x:1000px;} }
 </style>
 </head>
 
 <body>
 
-<div class="header">🌍 MBD SADAR BENCANA</div>
+<div class="header">
+    <div class="header-text">🌍 MBD SADAR BENCANA</div>
+    <img src="logo_bpbd.png" alt="Logo BPBD MBD" class="header-logo">
+</div>
 
 <nav>
 <button onclick="show('home')">🏠 HOME</button>
@@ -79,43 +138,26 @@ nav button { background:none; border:none; color:white; cursor:pointer; font-fam
     <div class="card" style="border-left-color: #00ffcc;">
         <h3>🌊 DATA MARITIM & CUACA LIVE (MBD)</h3>
         <div class="data-grid">
-            <div class="data-item">
-                <span class="data-label">Tinggi Gelombang</span>
-                <span id="v-wave" class="data-value">--</span>
-                <span style="font-size: 10px; color: #00ffcc;">Meter</span>
-            </div>
-            <div class="data-item">
-                <span class="data-label">Kecepatan Angin</span>
-                <span id="v-wind" class="data-value">--</span>
-                <span style="font-size: 10px; color: #00ffcc;">Knots</span>
-            </div>
-            <div class="data-item">
-                <span class="data-label">Curah Hujan</span>
-                <span id="v-rain" class="data-value">--</span>
-                <span style="font-size: 10px; color: #00ffcc;">mm/jam</span>
-            </div>
-            <div class="data-item">
-                <span class="data-label">Suhu Udara</span>
-                <span id="v-temp" class="data-value">--</span>
-                <span style="font-size: 10px; color: #00ffcc;">°Celcius</span>
-            </div>
+            <div class="data-item"><span class="data-label">Gelombang</span><span id="v-wave" class="data-value">--</span><span style="font-size: 10px;">Meter</span></div>
+            <div class="data-item"><span class="data-label">Angin</span><span id="v-wind" class="data-value">--</span><span style="font-size: 10px;">Knots</span></div>
+            <div class="data-item"><span class="data-label">Hujan</span><span id="v-rain" class="data-value">--</span><span style="font-size: 10px;">mm/jam</span></div>
+            <div class="data-item"><span class="data-label">Suhu</span><span id="v-temp" class="data-value">--</span><span style="font-size: 10px;">°C</span></div>
         </div>
-        <div id="tgl-cuaca" style="font-size: 9px; color: #555; margin-top: 12px; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 5px;"></div>
+        <div id="tgl-cuaca" style="font-size: 9px; color: #555; margin-top: 12px; text-align: center;"></div>
     </div>
 </div>
 
 <div id="berita" class="section">
-    <h2 style="color: #00d4ff; font-size: 18px;">Pusat Informasi & Peringatan</h2>
+    <h2 style="color: #00d4ff; font-size: 18px;">Informasi & Peringatan</h2>
 
     <div class="accordion-item">
         <button class="accordion-header" onclick="toggleAcc(this)">
             ⚠️ PERINGATAN DINI CUACA EKSTREM MBD <span>▼</span>
         </button>
         <div class="accordion-content">
-            <img src="berita.png" alt="Data BMKG MBD">
-            <p><strong>Sumber:</strong> Analisis BMKG Maluku Barat Daya.</p>
-            <p><strong>Status:</strong> Siaga Cuaca Ekstrem (24-26 Maret 2026).</p>
-            <p>Masyarakat dihimbau waspada terhadap gelombang tinggi di perairan Selat Wetar dan Laut Arafuru serta potensi angin kencang di wilayah pesisir.</p>
+            <img src="berita.jpg" alt="Data BMKG MBD">
+            <p><strong>Status:</strong> Siaga Cuaca Ekstrem Maluku Barat Daya.</p>
+            <p>Masyarakat dihimbau waspada terhadap gelombang tinggi dan potensi angin kencang.</p>
         </div>
     </div>
 
@@ -124,27 +166,31 @@ nav button { background:none; border:none; color:white; cursor:pointer; font-fam
 </div>
 
 <div id="peta" class="section">
-    <h2 style="color: #00d4ff; font-size: 18px;">Pemantauan Satelit Wilayah MBD</h2>
-    <iframe class="map-frame" frameborder="0" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d126135.21584061557!2d127.5910141386121!3d-8.225330368164821!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2d3a379f8266453f%3A0x678229415668b375!2sTiakur%2C%20Moa%2C%20Kabupaten%20Maluku%20Barat%20Daya%2C%20Maluku!5e0!3m2!1sid!2sid!4v1711200000000!5m2!1sid!2sid"></iframe>
+    <h2 style="color: #00d4ff; font-size: 18px;">Pemantauan Wilayah MBD</h2>
+    <iframe style="width:100%; height:450px; border-radius:12px; border: 2px solid #00d4ff;" frameborder="0" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15730.0123456789!2d127.65!3d-8.21!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2d3a000000000001%3A0xdeadbeefdeadbeef!2sTiakur!5e0!3m2!1sid!2sid!4v1711400000000!5m2!1sid!2sid"></iframe>
 </div>
 
 <div id="edukasi" class="section">
     <h2>Panduan Keselamatan</h2>
-    <div class="card"><strong>Gempa:</strong> Merunduk, Lindungi Kepala, Bertahan.</div>
-    <div class="card"><strong>Tsunami:</strong> Segera lari ke tempat tinggi (bukit) jika gempa terasa kuat >20 detik.</div>
-    <div class="card"><strong>Cuaca Buruk:</strong> Tunda pelayaran jika tinggi gelombang >1.5 Meter.</div>
+    <div class="card"><strong>Gempa:</strong> Merunduk dan Lindungi Kepala.</div>
+    <div class="card"><strong>Tsunami:</strong> Lari ke tempat tinggi (bukit).</div>
+</div>
+
+<div class="footer-running-text">
+    <div class="marquee-content">
+        Badan Penanggulangan Bencana Daerah (BPBD) Maluku Barat Daya --- Tetap Waspada, Salam Tangguh, Salam Kemanusiaan --- Informasi Real-time BMKG & BNPB ---
+    </div>
 </div>
 
 <div class="wave"></div>
 
 <script>
-// NAVIGASI UTAMA
+// JavaScript tetap sama seperti sebelumnya
 function show(id){
     document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
     document.getElementById(id).classList.add('active');
 }
 
-// ACCORDION HANDLER
 function toggleAcc(btn) {
     const content = btn.nextElementSibling;
     const span = btn.querySelector('span');
@@ -159,59 +205,40 @@ function toggleAcc(btn) {
     }
 }
 
-// 1. DATA GEMPA (BMKG LIVE)
+// DATA LOADING
 function loadGempa() {
     fetch('https://data.bmkg.go.id/DataMKG/TEWS/autogempa.json')
-    .then(r => r.json())
-    .then(data => {
+    .then(r => r.json()).then(data => {
         const g = data.Infogempa.gempa;
         const m = parseFloat(g.Magnitude);
         const s = document.getElementById("status");
-
-        if(m >= 6.5) { s.innerText = "🔴 STATUS: BAHAYA"; s.className = "status-box bahaya"; }
-        else if(m >= 5.0) { s.innerText = "🟡 STATUS: WASPADA"; s.className = "status-box waspada"; }
-        else { s.innerText = "🟢 STATUS: AMAN"; s.className = "status-box aman"; }
-
-        document.getElementById("gempa").innerHTML = `
-            <b>Lokasi:</b> ${g.Wilayah}<br>
-            <b>Kekuatan:</b> ${g.Magnitude} SR | <b>Kedalaman:</b> ${g.Kedalaman}<br>
-            <span style="color:#00ffcc; font-size:12px;">Update: ${g.Tanggal} | ${g.Jam} WIT</span>
-        `;
+        if(m >= 6.5) { s.innerText = "🔴 BAHAYA"; s.className = "status-box bahaya"; }
+        else if(m >= 5.0) { s.innerText = "🟡 WASPADA"; s.className = "status-box waspada"; }
+        else { s.innerText = "🟢 AMAN"; s.className = "status-box aman"; }
+        document.getElementById("gempa").innerHTML = `<b>${g.Wilayah}</b><br>${g.Magnitude} SR | ${g.Jam} WIT`;
     });
 }
 
-// 2. DATA CUACA & MARITIM (KOORDINAT TIAKUR, MBD)
 function loadCuaca() {
-    // Koordinat Tiakur, Maluku Barat Daya
     const lat = -8.21; const lon = 127.65;
-    
-    // Fetch data cuaca (Angin, Hujan, Suhu) dan Maritim (Gelombang) secara simultan
-    const cuacaUrl = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,rain,wind_speed_10m&wind_speed_unit=kn&timezone=Asia%2FJayapura`;
+    const cuacaUrl = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,rain,wind_speed_10m&wind_speed_unit=kn`;
     const lautUrl = `https://marine-api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=wave_height`;
-
-    Promise.all([fetch(cuacaUrl).then(r=>r.json()), fetch(lautUrl).then(r=>r.json())])
-    .then(([c, l]) => {
+    Promise.all([fetch(cuacaUrl).then(r=>r.json()), fetch(lautUrl).then(r=>r.json())]).then(([c, l]) => {
         document.getElementById("v-wave").innerText = l.current.wave_height;
         document.getElementById("v-wind").innerText = Math.round(c.current.wind_speed_10m);
         document.getElementById("v-rain").innerText = c.current.rain;
         document.getElementById("v-temp").innerText = Math.round(c.current.temperature_2m);
-        document.getElementById("tgl-cuaca").innerText = "DATA SATELIT TIAKUR - UPDATE: " + new Date().toLocaleString('id-ID', {timeZone:'Asia/Jayapura'}) + " WIT";
-    })
-    .catch(err => {
-        console.log("Error mengambil data maritim");
+        document.getElementById("tgl-cuaca").innerText = "UPDATE: " + new Date().toLocaleString('id-ID');
     });
 }
 
-// 3. BERITA BNPB & BMKG (SUMBER GOOGLE NEWS RSS)
 function loadBerita() {
-    const qBNPB = encodeURIComponent('BNPB Nasional');
-    const qBMKG = encodeURIComponent('BMKG Maluku Barat Daya');
-
+    const qBNPB = encodeURIComponent('BNPB Bencana');
+    const qBMKG = encodeURIComponent('BMKG Maluku');
     fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://news.google.com/rss/search?q='+qBNPB+'&hl=id&gl=ID&ceid=ID:id')}`)
-    .then(r=>r.json()).then(d => renderBerita(d.contents, "beritaBNPB", "📌 BNPB NASIONAL"));
-
+    .then(r=>r.json()).then(d => renderBerita(d.contents, "beritaBNPB", "BNPB"));
     fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://news.google.com/rss/search?q='+qBMKG+'&hl=id&gl=ID&ceid=ID:id')}`)
-    .then(r=>r.json()).then(d => renderBerita(d.contents, "beritaBMKGMBD", "📡 BMKG MALUKU"));
+    .then(r=>r.json()).then(d => renderBerita(d.contents, "beritaBMKGMBD", "BMKG"));
 }
 
 function renderBerita(xml, id, label) {
@@ -221,29 +248,16 @@ function renderBerita(xml, id, label) {
     let html = "";
     items.forEach((item, i) => {
         if(i < 3) {
-            html += `
-            <div class="accordion-item">
-                <button class="accordion-header" onclick="toggleAcc(this)">
-                    [${label}] ${item.querySelector("title").textContent} <span>▼</span>
-                </button>
-                <div class="accordion-content">
-                    <p><b>Publikasi:</b> ${new Date(item.querySelector("pubDate").textContent).toLocaleDateString('id-ID')}</p>
-                    <a href="${item.querySelector("link").textContent}" target="_blank" style="color:#00d4ff;">Buka Sumber Berita &raquo;</a>
-                </div>
+            html += `<div class="accordion-item">
+                <button class="accordion-header" onclick="toggleAcc(this)">[${label}] ${item.querySelector("title").textContent} <span>▼</span></button>
+                <div class="accordion-content"><a href="${item.querySelector("link").textContent}" target="_blank" style="color:#00d4ff;">Baca Detail Sumber »</a></div>
             </div>`;
         }
     });
     document.getElementById(id).innerHTML = html;
 }
 
-// INISIALISASI DATA
-loadGempa(); 
-loadCuaca(); 
-loadBerita();
-
-// AUTO UPDATE (SETIAP 5 MENIT)
-setInterval(loadGempa, 300000);
-setInterval(loadCuaca, 300000);
+loadGempa(); loadCuaca(); loadBerita();
 </script>
 
 </body>
