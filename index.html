@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MBD Sadar Bencana</title>
+<title>BPBD MBD - Sadar Bencana</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
 
@@ -13,102 +13,78 @@ body {
     font-family:'Orbitron', sans-serif;
     background: radial-gradient(circle at top,#0f2027,#203a43,#000);
     color:white;
-    padding-bottom: 60px; /* Ruang untuk teks berjalan di bawah */
+    padding-bottom: 60px;
 }
 
-/* --- UPDATE HEADER --- */
+/* --- HEADER DENGAN LOGO --- */
 .header { 
     display: flex;
-    justify-content: space-between; /* Membuat teks di kiri, logo di kanan */
-    align-items: center; /* Menjaga teks dan logo sejajar secara vertikal */
+    justify-content: space-between;
+    align-items: center;
     padding: 10px 20px;
     background: rgba(0,0,0,0.9);
     border-bottom: 2px solid #00d4ff;
 }
 
-.header-text {
-    font-size: 24px;
-    letter-spacing: 2px;
-}
+.header-text { font-size: 100px; letter-spacing: 1px; font-weight: bold; }
+.header-logo { height: 100px; width: auto; filter: drop-shadow(0 0 5px #00d4ff); }
 
-.header-logo {
-    height: 50px; /* Atur ukuran tinggi logo sesuai keinginan */
-    width: auto;
-}
+/* NAVIGATION */
+nav { display:flex; justify-content:space-around; background:#000; padding:12px; position:sticky; top:0; z-index:100; border-bottom: 1px solid #333; }
+nav button { background:none; border:none; color:white; cursor:pointer; font-family: inherit; font-size: 11px; font-weight: bold; text-transform: uppercase; }
 
-/* NAVBAR */
-nav { display:flex; justify-content:space-around; background:#000; padding:10px; position:sticky; top:0; z-index:100; border-bottom: 1px solid #333; }
-nav button { background:none; border:none; color:white; cursor:pointer; font-family: inherit; font-size: 12px; }
-
-/* SECTION */
+/* SECTION & CARDS */
 .section { display:none; padding:15px; animation: fadeIn 0.4s; }
 .active { display:block; }
 @keyframes fadeIn { from {opacity: 0;} to {opacity: 1;} }
 
-/* STATUS BOX */
-.status-box { text-align:center; font-size:24px; padding:25px; border-radius:15px; margin-bottom: 20px; font-weight: bold; }
-.aman {background: linear-gradient(135deg, #11998e, #38ef7d); box-shadow: 0 0 20px rgba(56, 239, 125, 0.4);}
-.waspada {background: linear-gradient(135deg, #f2994a, #f2c94c); box-shadow: 0 0 20px rgba(242, 201, 76, 0.4);}
-.bahaya {background: linear-gradient(135deg, #eb3349, #f45c43); box-shadow: 0 0 20px rgba(235, 51, 73, 0.4);}
+.status-box { text-align:center; font-size:22px; padding:20px; border-radius:15px; margin-bottom: 20px; font-weight: bold; text-transform: uppercase; }
+.aman {background: linear-gradient(135deg, #11998e, #38ef7d);}
+.waspada {background: linear-gradient(135deg, #f2994a, #f2c94c);}
+.bahaya {background: linear-gradient(135deg, #eb3349, #f45c43);}
 
-/* CARD */
 .card { background:rgba(255,255,255,0.05); padding:15px; border-radius:12px; margin:15px 0; border-left: 5px solid #00d4ff; backdrop-filter: blur(10px); }
-.card h3 { margin: 0 0 10px 0; font-size: 14px; color: #00d4ff; text-transform: uppercase; letter-spacing: 1px; }
+.card h3 { margin: 0 0 10px 0; font-size: 13px; color: #00d4ff; letter-spacing: 1px; }
 
-/* DATA GRID LIVE */
+/* --- DATA MARITIM GRID --- */
 .data-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
-.data-item { background: rgba(0,0,0,0.4); padding: 12px; border-radius: 8px; text-align: center; border: 1px solid rgba(255,255,255,0.05); }
-.data-value { display: block; font-size: 20px; font-weight: bold; color: #00d4ff; margin-top: 5px; }
-.data-label { font-size: 10px; color: #aaa; text-transform: uppercase; }
+.data-item { background: rgba(0,0,0,0.5); padding: 15px; border-radius: 10px; text-align: center; border: 1px solid rgba(0,212,255,0.2); }
+.data-value { display: block; font-size: 22px; font-weight: bold; color: #fff; margin-bottom: 2px; }
+.data-unit { font-size: 10px; color: #00d4ff; font-weight: bold; }
+.data-label { display: block; font-size: 9px; color: #aaa; text-transform: uppercase; margin-bottom: 5px; }
 
-/* ACCORDION */
+/* ACCORDION BERITA */
 .accordion-item { background: rgba(255, 255, 255, 0.07); margin-bottom: 10px; border-radius: 8px; border: 1px solid rgba(0, 212, 255, 0.2); }
-.accordion-header { width: 100%; padding: 15px; background: none; border: none; color: #fff; text-align: left; font-family: inherit; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-size: 13px; }
-.accordion-content { display: none; padding: 15px; background: rgba(0, 0, 0, 0.6); line-height: 1.5; font-size: 13px; border-top: 1px solid rgba(0,212,255,0.1); }
-.accordion-content img { width: 100%; border-radius: 8px; margin-bottom: 10px; }
+.accordion-header { width: 100%; padding: 15px; background: none; border: none; color: #fff; text-align: left; font-family: inherit; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-size: 12px; font-weight: bold; }
+.accordion-content { display: none; padding: 15px; background: rgba(0, 0, 0, 0.7); font-size: 13px; line-height: 1.6; border-top: 1px solid rgba(0,212,255,0.1); }
+.accordion-content img { width: 100%; border-radius: 8px; margin-bottom: 15px; border: 1px solid #333; }
 
-/* FOOTER TEXT BERJALAN */
-.footer-running-text {
+/* --- FOOTER TEKS BERJALAN --- */
+.footer-marquee {
     position: fixed;
     bottom: 0;
     left: 0;
     width: 100%;
-    background: rgba(0, 0, 0, 0.9);
+    background: rgba(0, 0, 0, 0.95);
     color: #00d4ff;
-    padding: 5px 0;
-    font-size: 11px;
-    z-index: 999;
+    padding: 6px 0;
+    font-size: 10px;
+    z-index: 1000;
     border-top: 1px solid #00d4ff;
     overflow: hidden;
-    white-space: nowrap;
 }
 
-.marquee-content {
+.marquee-text {
     display: inline-block;
-    padding-left: 100%;
-    animation: marquee 20s linear infinite;
-    text-transform: uppercase;
+    white-space: nowrap;
+    animation: scroll 25s linear infinite;
     font-weight: bold;
-    letter-spacing: 1px;
+    letter-spacing: 0.5px;
 }
 
-@keyframes marquee {
-    0% { transform: translate(0, 0); }
-    100% { transform: translate(-100%, 0); }
-}
+@keyframes scroll { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
 
-/* WAVE ANIMATION (DI BELAKANG TEKS) */
-.wave { 
-    position:fixed; 
-    bottom:20px; 
-    width:100%; 
-    height:60px; 
-    background:url('https://i.ibb.co/7bKZ1Vh/wave.png'); 
-    animation:wave-anim 10s linear infinite; 
-    z-index: -1; 
-    opacity: 0.2; 
-}
-
+.wave { position:fixed; bottom:20px; width:100%; height:50px; background:url('https://i.ibb.co/7bKZ1Vh/wave.png'); animation:wave-anim 10s linear infinite; z-index: -1; opacity: 0.15; }
 @keyframes wave-anim { from {background-position-x:0;} to {background-position-x:1000px;} }
 </style>
 </head>
@@ -128,36 +104,57 @@ nav button { background:none; border:none; color:white; cursor:pointer; font-fam
 </nav>
 
 <div id="home" class="section active">
-    <div id="status" class="status-box">SINKRONISASI...</div>
+    <div id="status" class="status-box">MENGHUBUNGKAN SENSOR...</div>
     
     <div class="card">
-        <h3>📡 GEMPA TERKINI BMKG (MALUKU)</h3>
-        <div id="gempa">Memuat data sensor...</div>
+        <h3>📡 DATA GEMPA TERKINI (BMKG)</h3>
+        <div id="gempa">Sinkronisasi data gempa nasional...</div>
     </div>
 
     <div class="card" style="border-left-color: #00ffcc;">
-        <h3>🌊 DATA MARITIM & CUACA LIVE (MBD)</h3>
+        <h3>🌊 INFO MARITIM & CUACA LIVE (MBD)</h3>
         <div class="data-grid">
-            <div class="data-item"><span class="data-label">Gelombang</span><span id="v-wave" class="data-value">--</span><span style="font-size: 10px;">Meter</span></div>
-            <div class="data-item"><span class="data-label">Angin</span><span id="v-wind" class="data-value">--</span><span style="font-size: 10px;">Knots</span></div>
-            <div class="data-item"><span class="data-label">Hujan</span><span id="v-rain" class="data-value">--</span><span style="font-size: 10px;">mm/jam</span></div>
-            <div class="data-item"><span class="data-label">Suhu</span><span id="v-temp" class="data-value">--</span><span style="font-size: 10px;">°C</span></div>
+            <div class="data-item">
+                <span class="data-label">Tinggi Gelombang</span>
+                <span id="v-wave" class="data-value">--</span>
+                <span class="data-unit">METER</span>
+            </div>
+            <div class="data-item">
+                <span class="data-label">Kecepatan Angin</span>
+                <span id="v-wind" class="data-value">--</span>
+                <span class="data-unit">KNOTS</span>
+            </div>
+            <div class="data-item">
+                <span class="data-label">Curah Hujan</span>
+                <span id="v-rain" class="data-value">--</span>
+                <span class="data-unit">MM/JAM</span>
+            </div>
+            <div class="data-item">
+                <span class="data-label">Suhu Udara</span>
+                <span id="v-temp" class="data-value">--</span>
+                <span class="data-unit">°CELCIUS</span>
+            </div>
         </div>
-        <div id="tgl-cuaca" style="font-size: 9px; color: #555; margin-top: 12px; text-align: center;"></div>
+        <p id="tgl-cuaca" style="font-size: 9px; color: #555; margin-top: 15px; text-align: center;"></p>
     </div>
 </div>
 
 <div id="berita" class="section">
-    <h2 style="color: #00d4ff; font-size: 18px;">Informasi & Peringatan</h2>
+    <h2 style="color: #00d4ff; font-size: 16px; margin-bottom: 20px;">Pusat Peringatan & Kabar Bencana</h2>
 
     <div class="accordion-item">
         <button class="accordion-header" onclick="toggleAcc(this)">
-            ⚠️ PERINGATAN DINI CUACA EKSTREM MBD <span>▼</span>
+            ⚠️ PERINGATAN DINI: CUACA EKSTREM MBD <span>▼</span>
         </button>
         <div class="accordion-content">
-            <img src="berita.png" alt="Data BMKG MBD">
-            <p><strong>Status:</strong> Siaga Cuaca Ekstrem Maluku Barat Daya.</p>
-            <p>Masyarakat dihimbau waspada terhadap gelombang tinggi dan potensi angin kencang.</p>
+            <img src="berita.png" alt="Peringatan Dini BPBD MBD">
+            <p><strong>Periode:</strong> 24 - 26 Maret 2026</p>
+            <p>Berdasarkan data pantauan BMKG, wilayah Maluku Barat Daya masuk kategori <strong>SIAGA</strong> dan <strong>AWAS</strong>.</p>
+            <ul>
+                <li><strong>Angin Kencang:</strong> Kecepatan 20-25 Knots (Siaga) dan >25 Knots (Awas).</li>
+                <li><strong>Gelombang Tinggi:</strong> Potensi 1.25 - 2.5 Meter di Perairan Kep. Letti, Moa, hingga Laut Arafuru.</li>
+                <li><strong>Hujan Lebat:</strong> Waspada banjir luapan dan tanah longsor di daerah perbukitan.</li>
+            </ul>
         </div>
     </div>
 
@@ -166,29 +163,32 @@ nav button { background:none; border:none; color:white; cursor:pointer; font-fam
 </div>
 
 <div id="peta" class="section">
-    <h2 style="color: #00d4ff; font-size: 18px;">Pemantauan Wilayah MBD</h2>
-    <iframe style="width:100%; height:450px; border-radius:12px; border: 2px solid #00d4ff;" frameborder="0" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15730.0123456789!2d127.65!3d-8.21!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2d3a000000000001%3A0xdeadbeefdeadbeef!2sTiakur!5e0!3m2!1sid!2sid!4v1711400000000!5m2!1sid!2sid"></iframe>
+    <h2 style="color: #00d4ff; font-size: 16px;">Pantauan Satelit Maluku Barat Daya</h2>
+    <div style="border-radius: 12px; overflow: hidden; border: 2px solid #00d4ff; height: 400px; margin-top: 10px;">
+        <iframe width="100%" height="100%" frameborder="0" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3934.300547038166!2d127.6433367!3d-8.2166549!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2d17978257000001%3A0x700000000000000!2sTiakur%2C%20Moa%2C%20Maluku%20Barat%20Daya!5e0!3m2!1sid!2sid!4v1711394451000!5m2!1sid!2sid"></iframe>
+    </div>
 </div>
 
 <div id="edukasi" class="section">
     <h2>Panduan Keselamatan</h2>
-    <div class="card"><strong>Gempa:</strong> Merunduk dan Lindungi Kepala.</div>
-    <div class="card"><strong>Tsunami:</strong> Lari ke tempat tinggi (bukit).</div>
+    <div class="card"><strong>Gempa:</strong> Merunduk, Lindungi Kepala, Tetap Tenang.</div>
+    <div class="card"><strong>Tsunami:</strong> Jika air laut surut tiba-tiba setelah gempa, lari ke bukit.</div>
+    <div class="card"><strong>Angin Kencang:</strong> Jauhi pohon, papan reklame, dan bangunan rapuh.</div>
 </div>
 
-<div class="footer-running-text">
-    <div class="marquee-content">
-        Badan Penanggulangan Bencana Daerah (BPBD) Maluku Barat Daya --- Tetap Waspada, Salam Tangguh, Salam Kemanusiaan --- Informasi Real-time BMKG & BNPB ---
+<div class="footer-marquee">
+    <div class="marquee-text">
+        BADAN PENANGGULANGAN BENCANA DAERAH (BPBD) KABUPATEN MALUKU BARAT DAYA --- TETAP WASPADA, SALAM TANGGUH, SALAM KEMANUSIAAN --- INFORMASI REAL-TIME SINKRONISASI BMKG & BNPB NASIONAL ---
     </div>
 </div>
 
 <div class="wave"></div>
 
 <script>
-// JavaScript tetap sama seperti sebelumnya
 function show(id){
     document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
     document.getElementById(id).classList.add('active');
+    window.scrollTo(0,0);
 }
 
 function toggleAcc(btn) {
@@ -205,40 +205,52 @@ function toggleAcc(btn) {
     }
 }
 
-// DATA LOADING
+// 1. DATA GEMPA NASIONAL (BMKG API)
 function loadGempa() {
     fetch('https://data.bmkg.go.id/DataMKG/TEWS/autogempa.json')
     .then(r => r.json()).then(data => {
         const g = data.Infogempa.gempa;
-        const m = parseFloat(g.Magnitude);
+        const mag = parseFloat(g.Magnitude);
         const s = document.getElementById("status");
-        if(m >= 6.5) { s.innerText = "🔴 BAHAYA"; s.className = "status-box bahaya"; }
-        else if(m >= 5.0) { s.innerText = "🟡 WASPADA"; s.className = "status-box waspada"; }
-        else { s.innerText = "🟢 AMAN"; s.className = "status-box aman"; }
-        document.getElementById("gempa").innerHTML = `<b>${g.Wilayah}</b><br>${g.Magnitude} SR | ${g.Jam} WIT`;
+
+        if(mag >= 6.0) { s.innerText = "🔴 STATUS: BAHAYA"; s.className = "status-box bahaya"; }
+        else if(mag >= 5.0) { s.innerText = "🟡 STATUS: WASPADA"; s.className = "status-box waspada"; }
+        else { s.innerText = "🟢 STATUS: AMAN"; s.className = "status-box aman"; }
+
+        document.getElementById("gempa").innerHTML = `
+            <b>Wilayah:</b> ${g.Wilayah}<br>
+            <b>Kekuatan:</b> ${g.Magnitude} SR | <b>Kedalaman:</b> ${g.Kedalaman}<br>
+            <span style="color:#00d4ff; font-size:10px;">Waktu: ${g.Tanggal} - ${g.Jam} WIT</span>
+        `;
     });
 }
 
+// 2. DATA MARITIM & CUACA REAL-TIME (KOORDINAT TIAKUR/MBD)
 function loadCuaca() {
     const lat = -8.21; const lon = 127.65;
-    const cuacaUrl = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,rain,wind_speed_10m&wind_speed_unit=kn`;
+    const cuacaUrl = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,rain,wind_speed_10m&wind_speed_unit=kn&timezone=Asia%2FJayapura`;
     const lautUrl = `https://marine-api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=wave_height`;
-    Promise.all([fetch(cuacaUrl).then(r=>r.json()), fetch(lautUrl).then(r=>r.json())]).then(([c, l]) => {
+
+    Promise.all([fetch(cuacaUrl).then(r=>r.json()), fetch(lautUrl).then(r=>r.json())])
+    .then(([c, l]) => {
         document.getElementById("v-wave").innerText = l.current.wave_height;
         document.getElementById("v-wind").innerText = Math.round(c.current.wind_speed_10m);
         document.getElementById("v-rain").innerText = c.current.rain;
         document.getElementById("v-temp").innerText = Math.round(c.current.temperature_2m);
-        document.getElementById("tgl-cuaca").innerText = "UPDATE: " + new Date().toLocaleString('id-ID');
+        document.getElementById("tgl-cuaca").innerText = "SINKRONISASI BMKG NASIONAL: " + new Date().toLocaleString('id-ID', {timeZone:'Asia/Jayapura'}) + " WIT";
     });
 }
 
+// 3. BERITA NASIONAL & LOKAL (RSS GOOGLE NEWS)
 function loadBerita() {
-    const qBNPB = encodeURIComponent('BNPB Bencana');
+    const qBNPB = encodeURIComponent('BNPB Nasional');
     const qBMKG = encodeURIComponent('BMKG Maluku');
+
     fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://news.google.com/rss/search?q='+qBNPB+'&hl=id&gl=ID&ceid=ID:id')}`)
-    .then(r=>r.json()).then(d => renderBerita(d.contents, "beritaBNPB", "BNPB"));
+    .then(r=>r.json()).then(d => renderBerita(d.contents, "beritaBNPB", "BNPB NASIONAL"));
+
     fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://news.google.com/rss/search?q='+qBMKG+'&hl=id&gl=ID&ceid=ID:id')}`)
-    .then(r=>r.json()).then(d => renderBerita(d.contents, "beritaBMKGMBD", "BMKG"));
+    .then(r=>r.json()).then(d => renderBerita(d.contents, "beritaBMKGMBD", "BMKG MALUKU"));
 }
 
 function renderBerita(xml, id, label) {
@@ -250,7 +262,10 @@ function renderBerita(xml, id, label) {
         if(i < 3) {
             html += `<div class="accordion-item">
                 <button class="accordion-header" onclick="toggleAcc(this)">[${label}] ${item.querySelector("title").textContent} <span>▼</span></button>
-                <div class="accordion-content"><a href="${item.querySelector("link").textContent}" target="_blank" style="color:#00d4ff;">Baca Detail Sumber »</a></div>
+                <div class="accordion-content">
+                    <p><i>Publikasi: ${new Date(item.querySelector("pubDate").textContent).toLocaleDateString('id-ID')}</i></p>
+                    <a href="${item.querySelector("link").textContent}" target="_blank" style="color:#00d4ff; text-decoration:none;">Buka Laporan Lengkap »</a>
+                </div>
             </div>`;
         }
     });
@@ -258,6 +273,7 @@ function renderBerita(xml, id, label) {
 }
 
 loadGempa(); loadCuaca(); loadBerita();
+setInterval(loadGempa, 300000);
 </script>
 
 </body>
