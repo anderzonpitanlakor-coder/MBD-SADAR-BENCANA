@@ -13,6 +13,7 @@ body {
     font-family:'Orbitron', sans-serif;
     background: radial-gradient(circle at top,#0f2027,#203a43,#000);
     color:white;
+    padding-bottom: 120px; /* Jarak untuk wave di bawah */
 }
 
 /* HEADER */
@@ -32,7 +33,7 @@ nav {
     padding:10px;
     position:sticky;
     top:0;
-    z-index:10;
+    z-index:100;
 }
 
 nav button {
@@ -40,12 +41,13 @@ nav button {
     border:none;
     color:white;
     cursor:pointer;
+    font-family: inherit;
 }
 
 /* SECTION */
 .section {
     display:none;
-    padding:15px;
+    padding:20px;
 }
 
 .active {
@@ -58,6 +60,7 @@ nav button {
     font-size:28px;
     padding:20px;
     border-radius:15px;
+    margin-bottom: 20px;
 }
 
 .aman {background:green;}
@@ -70,6 +73,50 @@ nav button {
     padding:15px;
     border-radius:10px;
     margin:10px 0;
+    border-left: 4px solid #00d4ff;
+}
+
+/* STYLING KHUSUS BERITA */
+.flex-container {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    margin-bottom: 20px;
+}
+
+.img-container {
+    flex: 1; /* Ambil 1 bagian ruang */
+}
+
+.img-berita {
+    width: 100%;
+    max-width: 450px;
+    height: auto;
+    border-radius: 10px;
+    border: 2px solid rgba(255,255,255,0.2);
+    display: block;
+}
+
+.text-container {
+    flex: 2; /* Ambil 2 bagian ruang (lebih lebar dari gambar) */
+}
+
+.alert-card {
+    background: rgba(255, 0, 0, 0.1);
+    border-left: 4px solid #ff4d4d;
+    padding: 15px;
+    border-radius: 10px;
+}
+
+/* RESPONSIVE: Di HP, gambar & teks bertumpuk */
+@media (max-width: 768px) {
+    .flex-container {
+        flex-direction: column;
+        align-items: center;
+    }
+    .text-container {
+        width: 100%;
+    }
 }
 
 /* WAVE */
@@ -80,6 +127,7 @@ nav button {
     height:100px;
     background:url('https://i.ibb.co/7bKZ1Vh/wave.png');
     animation:wave 10s linear infinite;
+    z-index: -1;
 }
 
 @keyframes wave {
@@ -102,12 +150,11 @@ nav button {
 <button onclick="show('edukasi')">📘 Edukasi</button>
 </nav>
 
-<!-- HOME -->
 <div id="home" class="section active">
 <div id="status" class="status-box">Loading...</div>
 
 <div class="card">
-<h3>📡 Gempa Terbaru</h3>
+<h3>📡 Gempa Terbaru (Live)</h3>
 <div id="gempa"></div>
 </div>
 
@@ -117,18 +164,40 @@ nav button {
 </div>
 </div>
 
-<!-- BERITA -->
 <div id="berita" class="section">
-<h2>Berita Bencana Terbaru</h2>
-<div id="berita.png"></div>
+    <h2>Peringatan Dini Cuaca Ekstrem (Resmi)</h2>
+    
+    <div class="flex-container">
+        
+        <div class="img-container">
+            <img src="berita.png" alt="Peringatan Dini MBD" class="img-berita">
+        </div>
+
+        <div class="text-container">
+            <div class="alert-card">
+                <h3>⚠️ PERINGATAN (24 - 26 Maret 2026)</h3>
+                <p><strong>Wilayah:</strong> Kabupaten Maluku Barat Daya (MBD)</p>
+                <p><strong>Status Kategori:</strong> SIAGA & AWAS</p>
+                <hr style="border-color: rgba(255,255,255,0.1);">
+                <ul>
+                    <li><strong>🌪️ Angin Kencang:</strong> Kecepatan ekstrem >25 Knots. Risiko tinggi pohon tumbang & kerusakan atap bangunan.</li>
+                    <li><strong>🌊 Gelombang Tinggi:</strong> Est. 1.25 - 2.5 Meter di Perairan Kep. Leti, Sermata, Moa, hingga Laut Arafuru. Sangat berisiko bagi nelayan & ferry.</li>
+                    <li><strong>🌧️ Hujan Lebat:</strong> Memicu potensi banjir luapan dan tanah longsor, terutama di daerah perbukitan.</li>
+                </ul>
+                <p style="margin-top:15px; font-style: italic; color: #ffcccc;">
+                    Saran Keselamatan: Tunda aktivitas pesisir, segera bersihkan saluran air, amankan bangunan rapuh, dan pastikan stok logistik darurat tersedia.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <h3>Berita Bencana Nasional Lainnya (RSS)</h3>
+    <div id="beritaFull"></div>
 </div>
 
-<!-- PETA -->
 <div id="peta" class="section">
 <h2>Peta & Info Wilayah</h2>
-<iframe width="100%" height="300"
-src="https://maps.google.com/maps?q=Maluku%20Barat%20Daya&z=7&output=embed">
-</iframe>
+<iframe width="100%" height="400" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?q=-8.118928,127.854065&hl=id&z=9&amp;output=embed"></iframe>
 
 <div class="card">
 <h3>📰 Update Wilayah</h3>
@@ -136,20 +205,19 @@ src="https://maps.google.com/maps?q=Maluku%20Barat%20Daya&z=7&output=embed">
 </div>
 </div>
 
-<!-- EDUKASI -->
 <div id="edukasi" class="section">
 <h2>Edukasi Bencana</h2>
 
 <div class="card">
-Gempa: Lindungi kepala & cari tempat aman.
+<strong>🌍 Gempa Bumi:</strong> Lindungi kepala dengan tangan/bantal, berlindung di bawah meja kuat. Jika di luar, jauhi gedung & tiang listrik.
 </div>
 
 <div class="card">
-Tsunami: Segera ke tempat tinggi.
+<strong>🌊 Tsunami:</strong> Jika gempa terasa sangat kuat/lama, segera lari ke tempat tinggi (bukit/gedung tinggi) tanpa menunggu peringatan resmi.
 </div>
 
 <div class="card">
-Banjir: Hindari arus deras.
+<strong>🌧️ Banjir:</strong> Matikan aliran listrik, amankan dokumen penting ke tempat tinggi. Hindari berjalan/berkendara di arus deras.
 </div>
 
 <div class="card">
@@ -161,14 +229,15 @@ Banjir: Hindari arus deras.
 <div class="wave"></div>
 
 <script>
-
 // NAVIGASI
 function show(id){
     document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
     document.getElementById(id).classList.add('active');
+    // Scroll ke atas setiap ganti tab
+    window.scrollTo(0, 0); 
 }
 
-// STATUS
+// STATUS (Logika Sederhana untuk Contoh)
 function cek(g){
     let m = parseFloat(g.Magnitude);
     let d = parseInt(g.Kedalaman);
@@ -178,7 +247,7 @@ function cek(g){
     return {t:"🟢 AMAN", c:"aman"};
 }
 
-// GEMPA BMKG
+// GEMPA BMKG (Live Data)
 function loadGempa(){
 fetch('https://data.bmkg.go.id/DataMKG/TEWS/autogempa.json')
 .then(r=>r.json())
@@ -190,16 +259,22 @@ fetch('https://data.bmkg.go.id/DataMKG/TEWS/autogempa.json')
     document.getElementById("status").className = "status-box " + s.c;
 
     document.getElementById("gempa").innerHTML = `
-    ${g.Tanggal} ${g.Jam}<br>
-    Magnitudo: ${g.Magnitude}<br>
-    Kedalaman: ${g.Kedalaman}<br>
-    Wilayah: ${g.Wilayah}`;
+    <strong>Waktu:</strong> ${g.Tanggal} - ${g.Jam}<br>
+    <strong>Magnitudo:</strong> ${g.Magnitude}<br>
+    <strong>Kedalaman:</strong> ${g.Kedalaman}<br>
+    <strong>Wilayah:</strong> ${g.Wilayah}`;
+})
+.catch(e => {
+    document.getElementById("gempa").innerHTML = "Gagal memuat data gempa.";
+    document.getElementById("status").innerHTML = "⚪ Memuat...";
+    document.getElementById("status").className = "status-box";
 });
 }
 
-// BERITA
+// BERITA RSS (Bencana MBD/Maluku)
 function loadBerita(){
-fetch('https://api.allorigins.win/get?url=' + encodeURIComponent('https://news.google.com/rss/search?q=bencana+Indonesia'))
+// Menggunakan query search yang lebih spesifik
+fetch('https://api.allorigins.win/get?url=' + encodeURIComponent('https://news.google.com/rss/search?q=bencana+Maluku+Barat+Daya&hl=id&gl=ID&ceid=ID:id'))
 .then(r=>r.json())
 .then(data=>{
     let parser = new DOMParser();
@@ -208,17 +283,30 @@ fetch('https://api.allorigins.win/get?url=' + encodeURIComponent('https://news.g
 
     let top3="", full="";
 
-    items.forEach((el,i)=>{
-        let title = el.querySelector("title").textContent;
+    if (items.length === 0) {
+        full = "<p>Tidak ada berita terbaru.</p>";
+        top3 = "<p>Tidak ada berita terbaru.</p>";
+    } else {
+        items.forEach((el,i)=>{
+            let title = el.querySelector("title").textContent;
+            let link = el.querySelector("link").textContent;
+            let date = el.querySelector("pubDate").textContent;
+            
+            // Format tanggal sederhana
+            let simpleDate = new Date(date).toLocaleDateString('id-ID');
 
-        if(i<3){
-            top3 += `<p>🔹 ${title}</p>`;
-        }
+            if(i<3){
+                top3 += `<p>🔹 <a href="${link}" target="_blank" style="color:#00d4ff; text-decoration:none;">${title}</a> (${simpleDate})</p>`;
+            }
 
-        if(i<6){
-            full += `<div class="card">🔹 ${title}</div>`;
-        }
-    });
+            if(i<6){
+                full += `<div class="card">
+                            🔹 <a href="${link}" target="_blank" style="color:white; text-decoration:none;">${title}</a>
+                            <br><span style="font-size:0.8em; color:rgba(255,255,255,0.5);">${simpleDate}</span>
+                         </div>`;
+            }
+        });
+    }
 
     document.getElementById("beritaHome").innerHTML = top3;
     document.getElementById("beritaFull").innerHTML = full;
@@ -231,8 +319,8 @@ fetch('https://api.allorigins.win/get?url=' + encodeURIComponent('https://news.g
 loadGempa();
 loadBerita();
 
-setInterval(loadGempa, 60000); // tiap 1 menit
-setInterval(loadBerita, 300000); // tiap 5 menit
+setInterval(loadGempa, 60000); 
+setInterval(loadBerita, 300000);
 
 </script>
 
